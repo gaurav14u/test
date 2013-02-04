@@ -66,7 +66,6 @@ public class IndexDB implements InvokeSearch {
 			d.add(new Field("MIDDLE_NAME", resultSet.getString("MIDDLE_NAME"),
 					Field.Store.NO, Field.Index.ANALYZED));
 			indexWriter.addDocument(d);
-			System.out.println(d.getField("ID"));
 			d.getField("ID").setValue("6");
 			indexWriter.addDocument(d);
 		}
@@ -75,19 +74,15 @@ public class IndexDB implements InvokeSearch {
 	private void search(Directory directory, Analyzer analyzer, String data)
 			throws CorruptIndexException, IOException, ParseException {
 		Searcher searcher = new IndexSearcher(IndexReader.open(directory));
-		System.out.println("Data:"+data);
 		Query query = new QueryParser(Version.LUCENE_35, "ID", analyzer)
 				.parse(data);
-		System.out.println("Q:"+query);
 		TopScoreDocCollector collector = TopScoreDocCollector.create(10, true);
 		searcher.search(query, 10);
 		//searcher.search(query, collector);
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
-		System.out.println("Hits:" + hits.length);
 		for (int i = 0; i < hits.length; ++i) {
 			int docId = hits[i].doc;
 			Document d = searcher.doc(docId);
-			System.out.println(d.get("ID"));
 		}
 		searcher.close();
 	}

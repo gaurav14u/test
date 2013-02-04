@@ -85,8 +85,6 @@ public class LuceneTest {
 			for (int i = 0; i < hits.length; ++i) {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
-				System.out.println(d.get("tab1_id"));
-				System.out.println(d.get("tab1_name"));
 			}
 			searcher.close();
 		} catch (Exception e) {
