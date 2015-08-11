@@ -50,6 +50,7 @@ public class IndexDB implements InvokeSearch {
 			System.err.println(e);
 		}
 		// Begin Search now After Indexing
+		//test
 		search(directory, analyzer, query);
 
 	}
